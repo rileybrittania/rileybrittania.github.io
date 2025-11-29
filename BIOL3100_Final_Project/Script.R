@@ -3,7 +3,8 @@ library(tidyverse)
 library(easystats)
 library(skimr)
 library(MASS)
-protein_df <- read.csv('Protein_Structures_Comparison.csv')
+protein_df <- read.csv('Protein_Structures_Comparison.csv') %>% 
+  mutate(Method = trimws(Method))
 
 ##3-to-1 AA Conversion (for pasting into AlphaFold)
 ###Step-by-Step
@@ -173,7 +174,6 @@ compare_performance(mod_aa_xray, mod_aa_rmsd2, mod_aa_rmsd3,
                     mod_ptm_rmsd2, mod_ptm_rmsd3, mod_aa_ptm,
                     mod_xray_rmsd2, mod_xray_rmsd3,
                     mod_all_rmsd2, mod_all_rmsd3) %>% plot()
-
 
 ### Average RMSD & pTM per Method
 Average_RMSD_2 <- protein_df %>% 

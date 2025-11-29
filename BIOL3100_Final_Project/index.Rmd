@@ -8,7 +8,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## [Resume/CV](./Riley Garside Resume BIOL3100.pdf) | [BIOL3100 Final Project](./BIOL_3100_Final.html)##
+## [Resume/CV](./Riley Garside Resume BIOL3100.pdf) | [BIOL3100 Final Project](./BIOL_3100_Final.html) ##
 
 # **Riley Garside - Biotechnologist** #
 

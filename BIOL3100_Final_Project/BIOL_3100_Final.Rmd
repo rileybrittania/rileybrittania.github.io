@@ -445,7 +445,6 @@ step_rmsd2$formula
 Best Model for RMSD When Aligned with AlphaFold 2:
 RMSD_2 ~ Number_of_AA + highest_pTM
 
-
 ```{r message=FALSE, warning=FALSE, results='hide'}
 mod_all_rmsd3 <- glm(dat = protein_df,
                      formula = RMSD_3 ~ Number_of_AA * highest_pTM)
@@ -506,9 +505,15 @@ AlphaFold 2 | 0.789
 AlphaFold 3 | 0.767
 
 # Conclusion
-The linear models with the most significance were .... However, when all models were compared, the best-performing one was aa vs pTM. Interestingly enough, it appears that on average, AlphaFold 2 structures aligned better with the x-ray diffraction structures and had a higher pTM as opposed to the newer AlphaFold 3. Moving forward, I would like to gather data for more proteins to increase the sample size, which would hopefully establish more concrete relationships and linear models. 
+The linear models with the most significance were:
+-resolution vs amino acid sequence length
+-AlphaFold 2 RMSD vs pTM
+-AlphaFold 3 RMSD vs pTM
+-amino acid sequence length vs pTM
 
-# Sources
+However, when all models were compared, the best-performing one examined the relationship between amino acid sequence length and pTM. Interestingly enough, it appears that on average, AlphaFold 2 structures aligned better with the x-ray diffraction structures and had a higher pTM as opposed to the newer AlphaFold 3. Moving forward, I would like to gather data for more proteins to increase the sample size, which would hopefully establish more concrete relationships and linear models. 
+
+# Project Tools
 [Li & Buck, 2021](https://pmc.ncbi.nlm.nih.gov/articles/PMC7980527/) | 
 [RSCB Protein Data Bank](https://www.rcsb.org/) | 
 [PyMOL](.https://pymol.org/) | 
