@@ -156,3 +156,40 @@ mod_aa_ptm <- glm(dat = protein_df,
 ###Comparison of Linear Models
 compare_performance(mod_aa_xray, mod_aa_rmsd2, mod_aa_rmsd3, 
                     mod_ptm_rmsd2, mod_ptm_rmsd3, mod_aa_ptm) %>% plot()
+
+### Finding the best models for RMSD2 and RMSD 3 with MASS
+mod_all_rmsd2 <- glm(dat = protein_df,
+                     formula = RMSD_2 ~ Number_of_AA * highest_pTM)
+step_rmsd2 = stepAIC(mod_all_rmsd2)
+step_rmsd2$formula
+
+mod_all_rmsd3 <- glm(dat = protein_df,
+                     formula = RMSD_3 ~ Number_of_AA * highest_pTM)
+step_rmsd3 = stepAIC(mod_all_rmsd3)
+step_rmsd3$formula
+
+### Comparison of Linear Models With Best Models
+compare_performance(mod_aa_xray, mod_aa_rmsd2, mod_aa_rmsd3, 
+                    mod_ptm_rmsd2, mod_ptm_rmsd3, mod_aa_ptm,
+                    mod_xray_rmsd2, mod_xray_rmsd3,
+                    mod_all_rmsd2, mod_all_rmsd3) %>% plot()
+
+
+### Average RMSD & pTM per Method
+Average_RMSD_2 <- protein_df %>% 
+  filter(!is.na(RMSD_2)) %>% 
+  group_by(Method) %>%
+  summarize(Mean_RMSD_AlphaFold2 = mean(RMSD_2))
+Average_RMSD_2
+
+Average_RMSD_3 <- protein_df %>% 
+  filter(!is.na(RMSD_3)) %>% 
+  group_by(Method) %>%
+  summarize(Mean_RMSD_AlphaFold3 = mean(RMSD_3))
+Average_RMSD_3
+
+Average_pTM <- protein_df %>% 
+  filter(!is.na(highest_pTM)) %>% 
+  group_by(Method) %>%
+  summarize(Mean_pTM = mean(highest_pTM))
+Average_pTM

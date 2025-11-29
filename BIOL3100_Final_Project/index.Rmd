@@ -1,0 +1,17 @@
+---
+output: 
+  prettydoc::html_pretty:
+    theme: hpstr
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## [Resume/CV](./Riley Garside Resume BIOL3100.pdf) | [BIOL3100 Final Project](./BIOL_3100_Final.html)##
+
+# **Riley Garside - Biotechnologist** #
+
+```{r, out.width="60%", echo=FALSE}
+knitr::include_graphics("./IMG_1755.jpg")
+```
