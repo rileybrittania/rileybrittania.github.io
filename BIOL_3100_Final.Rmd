@@ -104,7 +104,7 @@ knitr::include_graphics(c("Alignments/3U69_x-2.png", "Alignments/3U69_x-3.png", 
 knitr::include_graphics(c("Alignments/2OSS_x-2.png", "Alignments/2OSS_x-3.png", "Alignments/2OSS_2-3.png"))
 ```
 
-```{r image-gallery 7USK, echo=FALSE, fig.show="hold", out.width="33%", fig.align="center", fig.cap="Alignments for Bromodomain‐containing protein 4 BD2 (PDB 7uSK)."}
+```{r image-gallery 7USK, echo=FALSE, fig.show="hold", out.width="33%", fig.align="center", fig.cap="Alignments for Bromodomain‐containing protein 4 BD2 (PDB 7USK)."}
 knitr::include_graphics(c("Alignments/7USK_x-2.png", "Alignments/7USK_x-3.png", "Alignments/7USK_2-3.png"))
 ```
 
