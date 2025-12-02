@@ -281,22 +281,25 @@ structure identification/prediction method (x-ray diffraction, AlphaFold
 <p>pTM: predicted template-modeling score; predicts the similarity
 between a protein model structure and the true protein structure; the
 score is a number between 0 and 1 with higher values indicating greater
-quality RMSD (in Å): root-mean square deviation (in angstroms);
-calculates the differences between predicted and observed values such as
-length in angstroms, and can be used to determine the similarity between
-two protein structures; the lower the number, the greater the similarity
-Resolution (in Å): measure of the smallest distance (in angstroms)
+quality</p>
+<p>RMSD (in Å): root-mean square deviation (in angstroms); calculates
+the differences between predicted and observed values such as length in
+angstroms, and can be used to determine the similarity between two
+protein structures; the lower the number, the greater the similarity</p>
+<p>Resolution (in Å): measure of the smallest distance (in angstroms)
 between two objects that can be distinguished; the lower the number, the
 greater the detail; a distance of 1 angstrom means that individual atoms
-are distinguishable PyMOL: molecular visualization system that can
-convert raw x-ray diffraction data into a cohesive protein structure
-PDB: Protein Data Bank, a database for protein and DNA structural data;
-also refers to a file format in which structural data can be kept
-AlphaFold2 and 3: artificial intelligence program that can predict
-protein structures from amino acid sequences p-value: probability of
-obtaining the results through random chance and is used as a measure of
-data significance; the threshold/standard p-value to indicate extreme
-significance is &lt;0.05</p>
+are distinguishable</p>
+<p>PyMOL: molecular visualization system that can convert raw x-ray
+diffraction data into a cohesive protein structure</p>
+<p>PDB: Protein Data Bank, a database for protein and DNA structural
+data; also refers to a file format in which structural data can be
+kept</p>
+<p>AlphaFold2 and 3: artificial intelligence program that can predict
+protein structures from amino acid sequences</p>
+<p>p-value: probability of obtaining the results through random chance
+and is used as a measure of data significance; the threshold/standard
+p-value to indicate extreme significance is &lt;0.05</p>
 </div>
 </div>
 <div id="data-setup" class="section level1">
@@ -355,8 +358,9 @@ professor who was familiar with PyMOL and protein structural alignments
 to use the “alignment to molecule” function, so that’s why I went that
 route. I recorded the RMSD values in my spreadsheet for the following
 comparisons:</p>
-<p>X-Ray Diffraction to AlphaFold 2 X-Ray Diffraction to AlphaFold 3
-AlphaFold 2 to AlphaFold 3</p>
+<p>X-Ray Diffraction to AlphaFold 2</p>
+<p>X-Ray Diffraction to AlphaFold 3</p>
+<p>AlphaFold 2 to AlphaFold 3</p>
 <p>With the all of the alignments completed, I converted my spreadsheet
 to a .csv file and read my data into RStudio. For some reason, during
 the conversion my “Methods” column ended up with a lot of whitespace,
@@ -895,14 +899,14 @@ Diffraction</h3>
 <span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>               <span class="at">formula =</span> RMSD_2 <span class="sc">~</span> Number_of_AA <span class="sc">*</span> highest_pTM)</span>
 <span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>step_rmsd2 <span class="ot">=</span> <span class="fu">stepAIC</span>(mod_all_rmsd2)</span>
 <span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>step_rmsd2<span class="sc">$</span>formula</span></code></pre></div>
-<p>Best Model for RMSD When Aligned with AlphaFold 2: RMSD_2 ~
-Number_of_AA + highest_pTM</p>
+<p>Best Model for RMSD When Aligned with AlphaFold 2:</p>
+<p>RMSD_2 ~ Number_of_AA + highest_pTM</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>mod_all_rmsd3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">dat =</span> protein_df,</span>
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>                     <span class="at">formula =</span> RMSD_3 <span class="sc">~</span> Number_of_AA <span class="sc">*</span> highest_pTM)</span>
 <span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>step_rmsd3 <span class="ot">=</span> <span class="fu">stepAIC</span>(mod_all_rmsd3)</span>
 <span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>step_rmsd3<span class="sc">$</span>formula</span></code></pre></div>
-<p>Best Model for RMSD When Aligned with AlphaFold 3: RMSD_3 ~
-Number_of_AA * highest_pTM</p>
+<p>Best Model for RMSD When Aligned with AlphaFold 3:</p>
+<p>RMSD_3 ~ Number_of_AA * highest_pTM</p>
 </div>
 <div id="comparison-of-linear-models-with-best-models" class="section level3">
 <h3>Comparison of Linear Models With Best Models</h3>
@@ -951,11 +955,6 @@ pTM) and separate them by method.</p>
 <span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Method) <span class="sc">%&gt;%</span></span>
 <span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean_RMSD_AlphaFold3 =</span> <span class="fu">mean</span>(RMSD_3))</span>
 <span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>Average_RMSD_3</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 2
-##   Method            Mean_RMSD_AlphaFold3
-##   &lt;chr&gt;                            &lt;dbl&gt;
-## 1 AlphaFold2                        5.11
-## 2 X-Ray Diffraction                 5.56</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -977,11 +976,11 @@ pTM) and separate them by method.</p>
 </div>
 <div id="ptm-from-highest-rank-structure" class="section level3">
 <h3>pTM from Highest Rank Structure</h3>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>Average_pTM <span class="ot">&lt;-</span> protein_df <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(highest_pTM)) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Method) <span class="sc">%&gt;%</span></span>
-<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean_pTM =</span> <span class="fu">mean</span>(highest_pTM))</span>
-<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>Average_pTM</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>Average_pTM <span class="ot">&lt;-</span> protein_df <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(highest_pTM)) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Method) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean_pTM =</span> <span class="fu">mean</span>(highest_pTM))</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>Average_pTM</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1005,9 +1004,11 @@ pTM) and separate them by method.</p>
 </div>
 <div id="conclusion" class="section level1">
 <h1>Conclusion</h1>
-<p>The linear models with the most significance were: -resolution vs
-amino acid sequence length -AlphaFold 2 RMSD vs pTM -AlphaFold 3 RMSD vs
-pTM -amino acid sequence length vs pTM</p>
+<p>The linear models with the most significance were:</p>
+<p>-resolution vs amino acid sequence length</p>
+<p>-AlphaFold 2 RMSD vs pTM</p>
+<p>-AlphaFold 3 RMSD vs pTM</p>
+<p>-amino acid sequence length vs pTM</p>
 <p>However, when all models were compared, the best-performing one
 examined the relationship between amino acid sequence length and pTM.
 Interestingly enough, it appears that on average, AlphaFold 2 structures
@@ -1019,10 +1020,14 @@ hopefully establish more concrete relationships and linear models.</p>
 <div id="project-tools" class="section level1">
 <h1>Project Tools</h1>
 <p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7980527/">Li &amp;
-Buck, 2021</a> | <a href="https://www.rcsb.org/">RSCB Protein Data
-Bank</a> | <a href=".https://pymol.org/">PyMOL</a> | <a href="https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb#scrollTo=kOblAo-xetgx">AlphaFold
-2</a> | <a href="https://alphafoldserver.com/">AlphaFold 3</a> | <a href="./Protein_Structures_Comparison.csv">Protein Structural Comparison
-Dataset</a></p>
+Buck, 2021</a> |</p>
+<p><a href="https://www.rcsb.org/">RSCB Protein Data Bank</a> |</p>
+<p><a href=".https://pymol.org/">PyMOL</a> |</p>
+<p><a href="https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb#scrollTo=kOblAo-xetgx">AlphaFold
+2</a> |</p>
+<p><a href="https://alphafoldserver.com/">AlphaFold 3</a> |</p>
+<p><a href="./Protein_Structures_Comparison.csv">Protein Structural
+Comparison Dataset</a></p>
 </div>
 </div><!-- /.entry-content -->
 </article>

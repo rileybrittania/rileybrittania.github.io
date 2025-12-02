@@ -21,11 +21,17 @@ With the rise of artificial intelligence, a new method has emerged, a system cal
 
 ## Key Terms 
 pTM: predicted template-modeling score; predicts the similarity between a protein model structure and the true protein structure; the score is a number between 0 and 1 with higher values indicating greater quality
+
 RMSD (in Å): root-mean square deviation (in angstroms); calculates the differences between predicted and observed values such as length in angstroms, and can be used to determine the similarity between two protein structures; the lower the number, the greater the similarity
+
 Resolution (in Å): measure of the smallest distance (in angstroms) between two objects that can be distinguished; the lower the number, the greater the detail; a distance of 1 angstrom means that individual atoms are distinguishable
+
 PyMOL: molecular visualization system that can convert raw x-ray diffraction data into a cohesive protein structure
+
 PDB: Protein Data Bank, a database for protein and DNA structural data; also refers to a file format in which structural data can be kept
+
 AlphaFold2 and 3: artificial intelligence program that can predict protein structures from amino acid sequences
+
 p-value: probability of obtaining the results through random chance and is used as a measure of data significance; the threshold/standard p-value to indicate extreme significance is <0.05
 
 # Data Setup
@@ -59,7 +65,9 @@ knitr::include_graphics(c("PyMOLCodes/LoadCleanXRay.png", "PyMOLCodes/CleanLoadA
 I used the click-based controls to remove water molecules, ligands and other atoms, then to perform the actual structural alignments using the "align to molecule" function. Interestingly enough, the command-line version of the alignment function would give out slightly different RMSD values than the click-based version. I was originally instructed by a professor who was familiar with PyMOL and protein structural alignments to use the "alignment to molecule" function, so that's why I went that route. I recorded the RMSD values in my spreadsheet for the following comparisons: 
 
 X-Ray Diffraction to AlphaFold 2
+
 X-Ray Diffraction to AlphaFold 3
+
 AlphaFold 2 to AlphaFold 3
 
 With the all of the alignments completed, I converted my spreadsheet to a .csv file and read my data into RStudio. For some reason, during the conversion my "Methods" column ended up with a lot of whitespace, which I used an additional line of code to get rid of. 
@@ -443,6 +451,7 @@ step_rmsd2 = stepAIC(mod_all_rmsd2)
 step_rmsd2$formula
 ```
 Best Model for RMSD When Aligned with AlphaFold 2:
+
 RMSD_2 ~ Number_of_AA + highest_pTM
 
 ```{r message=FALSE, warning=FALSE, results='hide'}
@@ -452,6 +461,7 @@ step_rmsd3 = stepAIC(mod_all_rmsd3)
 step_rmsd3$formula
 ```
 Best Model for RMSD When Aligned with AlphaFold 3: 
+
 RMSD_3 ~ Number_of_AA * highest_pTM
 
 ### Comparison of Linear Models With Best Models
@@ -479,7 +489,7 @@ X-Ray Diffraction | 5.10530
 AlphaFold 3       | 3.76285
 
 ### RMSD from Alignment with AlphaFold 3
-```{r}
+```{r, results='hide'}
 Average_RMSD_3 <- protein_df %>% 
   filter(!is.na(RMSD_3)) %>% 
   group_by(Method) %>%
@@ -506,17 +516,27 @@ AlphaFold 3 | 0.767
 
 # Conclusion
 The linear models with the most significance were:
+
 -resolution vs amino acid sequence length
+
 -AlphaFold 2 RMSD vs pTM
+
 -AlphaFold 3 RMSD vs pTM
+
 -amino acid sequence length vs pTM
 
 However, when all models were compared, the best-performing one examined the relationship between amino acid sequence length and pTM. Interestingly enough, it appears that on average, AlphaFold 2 structures aligned better with the x-ray diffraction structures and had a higher pTM as opposed to the newer AlphaFold 3. Moving forward, I would like to gather data for more proteins to increase the sample size, which would hopefully establish more concrete relationships and linear models. 
 
 # Project Tools
-[Li & Buck, 2021](https://pmc.ncbi.nlm.nih.gov/articles/PMC7980527/) | 
-[RSCB Protein Data Bank](https://www.rcsb.org/) | 
-[PyMOL](.https://pymol.org/) | 
-[AlphaFold 2](https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb#scrollTo=kOblAo-xetgx) | 
-[AlphaFold 3](https://alphafoldserver.com/) |
+
+[Li & Buck, 2021](https://pmc.ncbi.nlm.nih.gov/articles/PMC7980527/)  
+
+[RSCB Protein Data Bank](https://www.rcsb.org/)  
+
+[PyMOL](.https://pymol.org/) 
+
+[AlphaFold 2](https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb#scrollTo=kOblAo-xetgx) 
+
+[AlphaFold 3](https://alphafoldserver.com/) 
+
 [Protein Structural Comparison Dataset](./Protein_Structures_Comparison.csv)
