@@ -459,7 +459,7 @@ RMSD_3 ~ Number_of_AA * highest_pTM
 compare_performance(mod_aa_xray, mod_aa_rmsd2, mod_aa_rmsd3, 
                     mod_ptm_rmsd2, mod_ptm_rmsd3, mod_aa_ptm,
                     mod_xray_rmsd2, mod_xray_rmsd3,
-                    mod_all_rmsd2, mod_all_rmsd3) %>% plot()
+                    step_rmsd2, step_rmsd3) %>% plot()
 ```
 
 ## Average RMSD & pTM per Method
